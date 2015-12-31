@@ -1,9 +1,11 @@
 --- mkimage.sh	2015-12-30 09:34:37.079021000 +0000
 +++ mkimage.sh	2015-12-30 09:33:07.263065800 +0000
-@@ -93,6 +93,17 @@
+@@ -93,6 +93,19 @@
  cat > "$dir/Dockerfile" <<EOF
  FROM scratch
  ADD $(basename "$tarFile") /
++ENV LC_ALL C.UTF-8
++ENV DEBIAN_FRONTEND noninteractive
 +RUN echo '\
 +path-exclude /usr/share/doc/*\n\
 +path-include /usr/share/doc/*/copyright\n\
