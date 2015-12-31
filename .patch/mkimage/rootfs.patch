@@ -1,0 +1,16 @@
+--- mkimage.sh	2015-12-30 08:55:24.101972100 +0000
++++ mkimage.sh	2015-12-30 08:53:28.863144900 +0000
+@@ -81,6 +81,13 @@
+ nameserver 8.8.4.4
+ EOF
+ 
++# clean up unnecessary stuff (docs, locales...)
++find "$rootfsDir/usr/share/doc" -depth -type f ! -name copyright|xargs rm || true
++find "$rootfsDir/usr/share/doc" -empty|xargs rmdir || true
++find "$rootfsDir/usr/share/locale/"* -depth -type d ! -name en*|xargs rm -rf || true
++rm -rf "$rootfsDir/usr/share/man/*" "$rootfsDir/usr/share/groff/*" "$rootfsDir/usr/share/info/*"
++rm -rf "$rootfsDir/usr/share/lintian/*" "$rootfsDir/usr/share/linda/*" "$rootfsDir/var/cache/man/*"
++
+ tarFile="$dir/rootfs.tar${compression:+.$compression}"
+ touch "$tarFile"
+ 
