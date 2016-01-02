@@ -4,3 +4,22 @@ sudo: required
 
 services:
 - docker
+
+env:
+  global:
+    - IMAGE="debian"
+    - DIST="jessie"
+    - MIRROR="http://ftp.us.debian.org/debian/"
+    - DEBOOTSTRAP_ARGS="--variant=minbase $DIST $MIRROR"
+  matrix:
+    - ARCH="armhf" DEBOOTSTRAP="qemu-debootstrap"
+
+install:
+- sudo apt-get update
+- sudo apt-get install -y debian-archive-keyring debootstrap qemu-user-static binfmt-support
+
+before_script:
+- git clone --depth 1 https://github.com/encodeering/armhf-debian-docker.git "$IMAGE"
+
+script:
+- sudo make -C "$IMAGE" bootstrap ARCH="$ARCH" DIST="$DIST" IMAGE="$IMAGE" DEBOOTSTRAP="$DEBOOTSTRAP" DEBOOTSTRAP_ARGS="$DEBOOTSTRAP_ARGS"
