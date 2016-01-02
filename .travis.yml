@@ -33,4 +33,6 @@ script:
 after_success:
 - docker login -e "$DOCKER_EMAIL" -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
 - sudo make -C "$IMAGE" tags push ARCH="$ARCH" DIST="$DIST" IMAGE="$IMAGE" LATEST="$DIST" REPOSITORY_IMAGE="$REPOSITORY_PREFIX-$ARCH" ADDITIONAL_TAGS="$ADDITIONAL_TAGS"
+
+after_script:
 - docker images
