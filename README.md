@@ -9,6 +9,11 @@
 - jessie, latest, 8
 - https://hub.docker.com/r/encodeering/debian-armhf/
 
+```docker pull encodeering/debian-amd64```
+
+- jessie, latest, 8
+- https://hub.docker.com/r/encodeering/debian-amd64/
+
 ### Modification
 
 Uses a [variant](https://github.com/encodeering/armhf-debian-docker) of the build script of [djmaze](https://github.com/djmaze/armhf-debian-docker) and customizes the following parts.
