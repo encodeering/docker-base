@@ -11,6 +11,8 @@ env:
     - DIST="jessie"
     - MIRROR="http://ftp.us.debian.org/debian/"
     - DEBOOTSTRAP_ARGS="--variant=minbase $DIST $MIRROR"
+    - REPOSITORY_PREFIX="encodeering/debian"
+    - ADDITIONAL_TAGS="8"
   matrix:
     - ARCH="armhf" DEBOOTSTRAP="qemu-debootstrap"
 
@@ -23,3 +25,7 @@ before_script:
 
 script:
 - sudo make -C "$IMAGE" bootstrap ARCH="$ARCH" DIST="$DIST" IMAGE="$IMAGE" DEBOOTSTRAP="$DEBOOTSTRAP" DEBOOTSTRAP_ARGS="$DEBOOTSTRAP_ARGS"
+
+after_success:
+- sudo make -C "$IMAGE" tags ARCH="$ARCH" DIST="$DIST" IMAGE="$IMAGE" LATEST="$DIST" REPOSITORY_IMAGE="$REPOSITORY_PREFIX-$ARCH" ADDITIONAL_TAGS="$ADDITIONAL_TAGS"
+- docker images
