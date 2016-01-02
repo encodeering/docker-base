@@ -18,6 +18,7 @@ env:
     - ADDITIONAL_TAGS="8"
   matrix:
     - ARCH="armhf" DEBOOTSTRAP="qemu-debootstrap"
+    - ARCH="amd64" DEBOOTSTRAP="debootstrap"
 
 install:
 - sudo apt-get update
