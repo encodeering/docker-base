@@ -1,9 +1,11 @@
---- mkimage.sh	2015-12-30 09:34:37.079021000 +0000
-+++ mkimage.sh	2015-12-30 09:33:07.263065800 +0000
-@@ -93,6 +93,19 @@
- cat > "$dir/Dockerfile" <<EOF
- FROM scratch
- ADD $(basename "$tarFile") /
+--- mkimage.sh	2016-01-07 19:30:07.591254300 +0000
++++ mkimage.sh	2016-01-07 19:31:18.798092700 +0000
+@@ -107,6 +107,23 @@
+ 
+ if [ "$tag" ]; then
+ 	( set -x; docker build -t "$tag" "$dir" )
++cat > "$dir/Dockerfile" <<EOF
++FROM $tag
 +ENV LC_ALL C.UTF-8
 +ENV DEBIAN_FRONTEND noninteractive
 +RUN echo '\
@@ -17,6 +19,8 @@
 +path-exclude /usr/share/locale/*\n\
 +path-include /usr/share/locale/en*\n\
 +' >> /etc/dpkg/dpkg.cfg.d/01_nodoc
- EOF
- 
- # if our generated image has a decent shell, let's set a default command
++EOF
++	( set -x; docker build -t "$tag" "$dir" )
+ elif [ "$delDir" ]; then
+ 	# if we didn't specify a tag and we're going to delete our dir, let's just build an untagged image so that we did _something_
+ 	( set -x; docker build "$dir" )
