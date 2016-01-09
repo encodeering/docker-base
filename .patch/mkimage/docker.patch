@@ -6,7 +6,7 @@
  	( set -x; docker build -t "$tag" "$dir" )
 +cat > "$dir/Dockerfile" <<EOF
 +FROM $tag
-+ENV LC_ALL C.UTF-8
++ENV LANG C.UTF-8
 +ENV DEBIAN_FRONTEND noninteractive
 +RUN echo '\
 +path-exclude /usr/share/doc/*\n\
