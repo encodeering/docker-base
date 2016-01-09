@@ -1,6 +1,6 @@
 --- mkimage.sh	2016-01-07 19:30:07.591254300 +0000
 +++ mkimage.sh	2016-01-07 19:31:18.798092700 +0000
-@@ -107,6 +107,23 @@
+@@ -107,6 +107,21 @@
  
  if [ "$tag" ]; then
  	( set -x; docker build -t "$tag" "$dir" )
@@ -16,8 +16,6 @@
 +path-exclude /usr/share/info/*\n\
 +path-exclude /usr/share/lintian/*\n\
 +path-exclude /usr/share/linda/*\n\
-+path-exclude /usr/share/locale/*\n\
-+path-include /usr/share/locale/en*\n\
 +' >> /etc/dpkg/dpkg.cfg.d/01_nodoc
 +EOF
 +	( set -x; docker build -t "$tag" "$dir" )
