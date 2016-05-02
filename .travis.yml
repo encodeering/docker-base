@@ -10,29 +10,29 @@ env:
     - secure: "S9NuvA3Ck15d/gjosWJY68DKAR5r7X8pntKN2SsGAe80Qm2tEMNMq6STXLQszr+hGX3QlmdRas0+CCC3sZCxMhgCTyvCcWZtGbRJ8wyuTh0lCv2Y6OinwgbDQ9OufcxAjQtw48H3cjlkKU1e3iO+wRp9En93OExnVtgO4Rvjb5BOOAkC/GLOl/houy0LvJ9ogxvTya30m0OLjp3P5jdN7uCkekhQJV45q9/QcTmP19HQALj9hWqZv2bor4V7GBgcl04dCknADOhG3mwr4LZVIiuSzQ+6CXPB73m63kzViK0KKbbta+Dm+BlKf6EbsArPmz3ulm8gCejk8RA06sUDBvrB6LAstk3YLVFNC5UpNG90mgzn6LUQmD4uScu6Mz4z1To6ZszeDKMIlhM84DgeVMmtp+l3LK2p32uG+Z0baanrlpPoxySZq9G7TE+w8s8WxXhJ4FAzXiXH9/VVijsp8g21uF1tgYnDWlCniJQ59o0pNr1xYZrCiMNGCFHlVXi/9YxbQszgoa4Of1DUe5DuQFoe9aPjQF+txGngaKM6AQMeUP/vh6rn5IQYEUr/Eh59OoaDj4tr6JEyV9/+nrqb9k5pxjvW9U+wWG1wa+IVQBtrXo7SvmL8df16hF0wr2+6TqDbb/gtxyHsAJsF7iq40FOyFXaxY1VLUdYxcgxh6dY="
     - secure: "J8qCiZlm39rFvKsNhHxu/KVFXc4P3nB8QL3m2WE6BF9OLqvQGhz7HDwi4xiBUg1jKeqa9nLXVgBke9i/XtcNkf+Pqu9RBX5gOBC6V3/XrFMZg7Nfi5kkknC3Egc7F0xK7QxgfGKxiYJm4mPuz4PyknOtoR1oXZeYOnV4gXnRydEOjSeCMnAnS35YBNo1r0Q5TnZtzWgoPHCbweETODssRat2z2PeKDRQpohI3A3913NNvUZ58dtXGGAdA0ZhoM3AoglRw+ZIFtw3f5Xl/JqfQ3ket72hPQngtelJeubktK4kspo10LS+iZK7vdBZR19exDMuDP1mj1E2YXQ5mvEb+Uodi3eDxDdYYx0OXp/zQrYDk1P7iBQFQ2mPIQRvDSFSg7nZrPkkfXwn7TRASVtcgNaj406n87mNTqs+YLGfpNvu5X8GZK6c/+4zFfvFrgqgAPjyccpuuXpcm7QPJXeMxZrHi5iMeQSOWS00+URDw8hI1wkruq+j0TkJHFCYxY66rY+PCawrNS7obkm5ZUluHWwfJMCh37uCQxBSzAS336jysh55xGZ5c64fTEU/m6y4LfTnUdC1bvEVoQ5qPNnHTHTE/rsnrzJaVRIRg+qBRRIIHP55oXmvZA8xa9WOypo7wP6dyupdAZiONUNhxWGX1vGhMWVTRR5w4HZpJCqEX4k="
     - secure: "TAXLsPxgnEljos+iNfm/B7aVpHuDWrate11aLpbIToxTz4cR6yTUpyqCMcGEpMtdLF3SIzRKjVGjzTwSkaMLTGSzs1GpSJM+Mqwj+h2GTXtZLWnvgsbT95QEtKS0TDRBJS/F9VpFY2QGvDCcQVKkPNaLI0fyPlxRlE9OOsFTgrugKeZBbjwZkkNjaP1G8AglTa1UTFp6y/8q9+9KLuP32hEGTaDwt/RZ01EH1jSsa+4f+Y6DRpz2AsDYkHdhQRypzlWo6eBZykfg4Pzb1p417mLxXW1/hIb9pblsKrVnZwsoT6R1b62unI4UOMjv7dXF7cfg/MDH90v+KI8WIqDBUX9PrfSEQxXAp5irrYnTYR+naavvbSnCmog184k4LPKYoQFRrYwuuiN5JPeWbVomgN8q2TTZQCy06DZAvsXpmTz/ZI8DLlA1EH05OL7hAuEd5lHkxosGgs4Vmo4l+hv7KJcQy1C0Uev9aGiAiSB4T2AkQGZiaUlp+ZdZ2AT+bURjqK0sp7IKR2ZBB9I1EoYdSzWwyT8hvdl/zCHGugwCzuDvHuwm1x68dL1DGeQyWAZOnMGNT8SEYyGyqbQUBthqKO+Z0HLUkwD+CTPV7qMA8QTF+cjVZONIzA1XutrAy5vWewsMkl4Ae/K9Pi2fyIGmPgIKfLklKtBP/r/fOdYk44o="
-    - IMAGE="debian"
-    - DIST="jessie"
+    - PROJECT="debian"
+    - REPOSITORY="encodeering"
     - MIRROR="http://ftp.us.debian.org/debian/"
-    - DEBOOTSTRAP_ARGS="--variant=minbase $DIST $MIRROR"
-    - REPOSITORY_PREFIX="encodeering/debian"
-    - ADDITIONAL_TAGS="8"
+    - CONFIGURATION="--variant=minbase"
   matrix:
-    - ARCH="armhf" DEBOOTSTRAP="qemu-debootstrap"
-    - ARCH="amd64" DEBOOTSTRAP="debootstrap"
+    - ARCH="armhf" DISTRIBUTION="jessie" DEBOOTSTRAP="qemu-debootstrap"
+    - ARCH="amd64" DISTRIBUTION="jessie" DEBOOTSTRAP="debootstrap"
 
 install:
 - sudo apt-get update
-- sudo apt-get install -y debian-archive-keyring debootstrap qemu-user-static binfmt-support
+- sudo apt-get install -y debian-archive-keyring debootstrap binfmt-support
 
 before_script:
-- git clone --depth 1 https://github.com/encodeering/armhf-debian-docker.git "$IMAGE"
+- sudo -E sh .travis/prepare.sh
 
 script:
-- sudo make -C "$IMAGE" bootstrap ARCH="$ARCH" DIST="$DIST" IMAGE="$IMAGE" DEBOOTSTRAP="$DEBOOTSTRAP" DEBOOTSTRAP_ARGS="$DEBOOTSTRAP_ARGS"
-
-after_success:
-- docker login -e "$DOCKER_EMAIL" -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-- sudo make -C "$IMAGE" tags push ARCH="$ARCH" DIST="$DIST" IMAGE="$IMAGE" LATEST="$DIST" REPOSITORY_IMAGE="$REPOSITORY_PREFIX-$ARCH" ADDITIONAL_TAGS="$ADDITIONAL_TAGS"
+- sudo -E sh .travis/build.sh
 
 after_script:
 - docker images
+
+deploy:
+  script: sudo -E sh .travis/deploy.sh
+  provider: script
+  on:
+    branch: master
