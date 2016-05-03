@@ -23,16 +23,16 @@ install:
 - sudo apt-get install -y debian-archive-keyring debootstrap binfmt-support
 
 before_script:
-- sudo -E sh .travis/prepare.sh
+- sudo -E bash .travis/prepare.sh
 
 script:
-- sudo -E sh .travis/build.sh
+- sudo -E bash .travis/build.sh
 
 after_script:
 - docker images
 
 deploy:
-  script: sudo -E sh .travis/deploy.sh
+  script: sudo -E bash .travis/deploy.sh
   provider: script
   on:
     branch: master
