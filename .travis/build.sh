@@ -8,7 +8,7 @@ TAG="$REPOSITORY/$PROJECT-$ARCH"
 TAGSPECIFIER="$DISTRIBUTION"
 QEMUBUILDPACK="$REPOSITORY/buildpack-amd64:jessie"
 QEMUDIRECTORY="mkimage-qemu"
-QEMUVERSION="v2.5.1"
+QEMUVERSION="v2.6.0"
 
 mkimageqemu () {
     [ -z "$QEMU_TARGET" ] && return
