@@ -34,7 +34,7 @@ EOF
     docker run --name "$QEMU_NAME" qemu:static make -j4
     docker cp         "$QEMU_NAME:/usr/src/qemu/build/$QEMU_TARGET/$QEMU_NAME" "/usr/bin/$QEMU_NAME_STATIC"
 
-    strip "/usr/bin/$QEMU_NAME_STATIC"
+    strip -s "/usr/bin/$QEMU_NAME_STATIC"
 }
 
 mkdir -p mkimage
