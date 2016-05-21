@@ -66,3 +66,6 @@ docker build -t "$PROJECT:$DISTRIBUTION" contrib
 
 docker tag "$PROJECT:$DISTRIBUTION" "$TAG:$TAGSPECIFIER"
 docker run --rm                     "$TAG:$TAGSPECIFIER" cat /etc/debian_version
+
+docker run --rm -e debug=true         "$TAG:$TAGSPECIFIER" docker-exec                             cat /etc/debian_version
+docker run --rm -e eula-sample=accept "$TAG:$TAGSPECIFIER" docker-eula -k sample -u www.sample.org cat /etc/debian_version
