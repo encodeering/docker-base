@@ -14,6 +14,7 @@ env:
     - REPOSITORY="encodeering"
     - MIRROR="http://ftp.us.debian.org/debian/"
     - CONFIGURATION="--variant=minbase"
+    - BRANCH="$TRAVIS_BRANCH"
   matrix:
     - ARCH="armhf" DISTRIBUTION="jessie" DEBOOTSTRAP="qemu-debootstrap"
     - ARCH="amd64" DISTRIBUTION="jessie" DEBOOTSTRAP="debootstrap"
@@ -35,4 +36,4 @@ deploy:
   script: sudo -E bash .travis/deploy.sh
   provider: script
   on:
-    branch: master
+    all_branches: true
