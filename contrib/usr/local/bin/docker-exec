@@ -1,0 +1,39 @@
+#!/bin/bash
+#https://github.com/encodeering
+
+function log {
+    [ ! -z "${debug:+x}" ] && { echo "$@"; }
+}
+
+function setup {
+    handler="$1"; shift
+    process="$1"; shift
+
+    for signal; do
+        log  "trapping process ${process} -${signal}"
+        trap "${handler}      '${process}''${signal}'" "${signal}"
+    done
+}
+
+function alive {
+    kill -0 "$1" 2> /dev/null
+}
+
+function stop {
+    log  "stopping process $1 ${2:+-$2}"
+    kill                     "${2:+-$2}" "$1" 2> /dev/null
+}
+
+function terminate {
+    sleep 1
+    alive $1 && { log "terminating process $1 forcefully after 5 seconds"; sleep 5; stop "$1"; }
+    alive $1 && { false; } || { true; }
+}
+
+which "$1" > /dev/null && { log "starting process using exec"; exec    "$@" & } \
+                       || { log "starting process using bash"; bash -c "$@" & }
+
+                pid="$!"
+setup "stop" "${pid}" SIGHUP SIGINT SIGQUIT SIGTERM SIGUSR1 SIGUSR2
+wait         "${pid}" # interrupt signal will trigger the parent and child process
+terminate    "${pid}" # whereby the parent process should terminate the misbehaving child process eventually
