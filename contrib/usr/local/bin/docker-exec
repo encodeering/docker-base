@@ -25,7 +25,7 @@ function stop {
 }
 
 function terminate {
-    sleep 1
+    alive $1 && sleep 1
     alive $1 && { log "terminating process $1 forcefully after 5 seconds"; sleep 5; stop "$1"; }
     alive $1 && { false; } || { true; }
 }
