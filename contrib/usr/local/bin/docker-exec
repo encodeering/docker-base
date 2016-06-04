@@ -2,7 +2,7 @@
 #https://github.com/encodeering
 
 function log {
-    [ ! -z "${debug:+x}" ] && { echo "$@"; }
+    [ ! -z "${debug:+x}" ] && { echo "$@"; } || { true; }
 }
 
 function setup {
