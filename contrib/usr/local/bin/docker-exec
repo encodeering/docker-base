@@ -30,7 +30,7 @@ function terminate {
     alive $1 && { false; } || { true; }
 }
 
-which "$1" > /dev/null && { log "starting process using exec"; exec    "$@" & } \
+which "$1" > /dev/null && { log "starting process using exec"; exec    "$@" ; } \
                        || { log "starting process using bash"; bash -c "$@" & }
 
                 pid="$!"
