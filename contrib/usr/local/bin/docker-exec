@@ -25,9 +25,15 @@ function stop {
 }
 
 function terminate {
-    alive $1 && sleep 1
-    alive $1 && { log "terminating process $1 forcefully after 5 seconds"; sleep 5; stop "$1"; }
-    alive $1 && { false; } || { true; }
+    pid="$1"; shift
+    sec="$1"; shift
+
+    if [ "${sec}" -le 0 ]; then
+        stop  "${pid}"
+        alive "${pid}" && { false; } || { true; }
+    else
+        alive "${pid}" && { log "terminating process ${pid} forcefully after ${sec} seconds"; sleep 1; terminate "${pid}" "$(expr ${sec} - 1)"; } || { true; }
+    fi
 }
 
 which "$1" > /dev/null && { log "starting process using exec"; exec    "$@" ; } \
@@ -39,7 +45,7 @@ wait         "${pid}" # interrupt signal will trigger the parent and child proce
 
 status=${?}
 
-terminate    "${pid}" # whereby the parent process should terminate the misbehaving child process eventually
+terminate    "${pid}" 5 # whereby the parent process should terminate the misbehaving child process eventually
 
 [ ${status} = 0 ] && { exit ${?};      } \
                   || { exit ${status}; }
