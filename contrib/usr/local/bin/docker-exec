@@ -36,4 +36,10 @@ which "$1" > /dev/null && { log "starting process using exec"; exec    "$@" & } 
                 pid="$!"
 setup "stop" "${pid}" SIGHUP SIGINT SIGQUIT SIGTERM SIGUSR1 SIGUSR2
 wait         "${pid}" # interrupt signal will trigger the parent and child process
+
+status=${?}
+
 terminate    "${pid}" # whereby the parent process should terminate the misbehaving child process eventually
+
+[ ${status} = 0 ] && { exit ${?};      } \
+                  || { exit ${status}; }
