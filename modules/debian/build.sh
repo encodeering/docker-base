@@ -2,8 +2,6 @@
 
 set -ev
 
-shopt -s globstar
-
 source ".travis/config/all.sh"   || true
 source ".travis/config/$ARCH.sh" || true
 
@@ -26,16 +24,11 @@ patch -p0 --no-backup-if-mismatch < .patch/debootstrap/source.patch
   mkimageqemu
 ./mkimage.sh -t "$PROJECT:$DISTRIBUTION" debootstrap --arch="$ARCH" --components=main,universe "$CONFIGURATION" "$DISTRIBUTION" "$MIRROR"
 
-cat <<-EOF > "contrib/Dockerfile"
-	FROM $PROJECT:$DISTRIBUTION
-	COPY / /
-EOF
+docker export -o debian.tar.gz `docker run --name debian "$PROJECT:$DISTRIBUTION" sh; echo debian`
+docker export -o any.tar.gz    `docker run --name any    "$PROJECT:any"           sh; echo any   `
 
-chmod -Rv +x contrib/**/bin/*
+docker build -t "$TAG:$TAGSPECIFIER" .
 
-docker build -t "$PROJECT:$DISTRIBUTION" contrib
-
-docker tag "$PROJECT:$DISTRIBUTION" "$TAG:$TAGSPECIFIER"
 docker run --rm                     "$TAG:$TAGSPECIFIER" cat /etc/debian_version
 
 docker run --rm -e debug=true         "$TAG:$TAGSPECIFIER" docker-exec                             cat /etc/debian_version
