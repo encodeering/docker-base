@@ -24,8 +24,8 @@ patch -p0 --no-backup-if-mismatch < .patch/debootstrap/source.patch
   mkimageqemu
 ./mkimage.sh -t "$PROJECT:$DISTRIBUTION" debootstrap --arch="$ARCH" --components=main,universe "$CONFIGURATION" "$DISTRIBUTION" "$MIRROR"
 
-docker export -o debian.tar.gz `docker run --name debian "$PROJECT:$DISTRIBUTION" sh; echo debian`
-docker export -o any.tar.gz    `docker run --name any    "$PROJECT:any"           sh; echo any   `
+docker export -o debian.tar.gz `docker create "$PROJECT:$DISTRIBUTION" sh`
+docker export -o any.tar.gz    `docker create "$PROJECT:any"           sh`
 
 docker build -t "$TAG:$TAGSPECIFIER" .
 
