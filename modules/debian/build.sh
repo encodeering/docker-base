@@ -2,9 +2,6 @@
 
 set -ev
 
-source ".travis/config/all.sh"   || true
-source ".travis/config/$ARCH.sh" || true
-
 BRANCH=${BRANCH##master}
 BRANCH=${BRANCH:+-${BRANCH}}
 TAG="$REPOSITORY/$PROJECT-$ARCH"
@@ -21,7 +18,6 @@ patch -p0 --no-backup-if-mismatch < patch/mkimage/docker.patch
 patch -p0 --no-backup-if-mismatch < patch/debootstrap/aptitude.patch
 patch -p0 --no-backup-if-mismatch < patch/debootstrap/source.patch
 
-  mkimageqemu
 ./mkimage.sh -t "$PROJECT:$DISTRIBUTION" debootstrap --arch="$ARCH" --components=main,universe "$CONFIGURATION" "$DISTRIBUTION" "$MIRROR"
 
 docker export -o debian.tar.gz `docker create "$PROJECT:$DISTRIBUTION" sh`
