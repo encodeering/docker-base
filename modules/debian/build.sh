@@ -16,10 +16,10 @@ curl "https://raw.githubusercontent.com/docker/docker/master/contrib/mkimage/deb
 curl "https://anonscm.debian.org/git/pkg-qemu/qemu.git/plain/debian/qemu-debootstrap?h=debian-$DISTRIBUTION" >/usr/sbin/qemu-debootstrap
 chmod -R u+x mkimage mkimage.sh /usr/sbin/qemu-debootstrap
 
-patch -p0 --no-backup-if-mismatch < .patch/mkimage/rootfs.patch
-patch -p0 --no-backup-if-mismatch < .patch/mkimage/docker.patch
-patch -p0 --no-backup-if-mismatch < .patch/debootstrap/aptitude.patch
-patch -p0 --no-backup-if-mismatch < .patch/debootstrap/source.patch
+patch -p0 --no-backup-if-mismatch < patch/mkimage/rootfs.patch
+patch -p0 --no-backup-if-mismatch < patch/mkimage/docker.patch
+patch -p0 --no-backup-if-mismatch < patch/debootstrap/aptitude.patch
+patch -p0 --no-backup-if-mismatch < patch/debootstrap/source.patch
 
   mkimageqemu
 ./mkimage.sh -t "$PROJECT:$DISTRIBUTION" debootstrap --arch="$ARCH" --components=main,universe "$CONFIGURATION" "$DISTRIBUTION" "$MIRROR"
