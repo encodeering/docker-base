@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
+# configuration
+#   env.PROJECT
 
-set -ev
+set -e
 
 shopt -s globstar
 
-source "config/all.source"   || true
-source "config/$ARCH.source" || true
+import com.encodeering.docker.lang
+import com.encodeering.docker.config
 
 mkimageqemu
 
