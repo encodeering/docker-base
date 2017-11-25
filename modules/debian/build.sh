@@ -10,6 +10,7 @@ set -e
 
 import com.encodeering.docker.lang
 import com.encodeering.docker.config
+import com.encodeering.docker.docker
 
 mkdir -p mkimage
 curl "https://raw.githubusercontent.com/docker/docker/master/contrib/mkimage.sh" >mkimage.sh
