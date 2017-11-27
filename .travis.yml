@@ -37,5 +37,6 @@ after_script:
 deploy:
   script: sudo -E bash ./module.sh "." "./release.sh"
   provider: script
+  skip_cleanup: true
   on:
     all_branches: true
