@@ -2,7 +2,7 @@
 
 QEMUBUILDPACK="$REPOSITORY/buildpack-amd64:jessie"
 QEMUDIRECTORY="qemu"
-QEMUVERSION="v2.10.1"
+QEMUVERSION="v2.6.0"
 
 mkimageqemu () {
     [ -z "$QEMU_TARGET" ] && return
