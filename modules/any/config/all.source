@@ -2,10 +2,11 @@
 
 QEMUBUILDPACK="$REPOSITORY/buildpack-amd64:jessie"
 QEMUDIRECTORY="qemu"
-QEMUVERSION="v2.6.0"
 
 mkimageqemu () {
     [ -z "$QEMU_TARGET" ] && return
+
+    local version="v$1"; shift
 
     rm -rf   "$QEMUDIRECTORY"
     mkdir -p "$QEMUDIRECTORY"
@@ -17,7 +18,7 @@ mkimageqemu () {
     cat <<-EOF > "$QEMUDIRECTORY/Dockerfile"
 		FROM $QEMUBUILDPACK
 		RUN apt-get update && apt-get -y install git libglib2.0-dev libfdt-dev libpixman-1-dev zlib1g-dev
-		RUN git clone --depth 1 --branch "$QEMUVERSION" https://github.com/qemu/qemu.git /usr/src/qemu
+		RUN git clone --depth 1 --branch "$version" https://github.com/qemu/qemu.git /usr/src/qemu
 		WORKDIR /usr/src/qemu
 		RUN mkdir -p build
 		WORKDIR      build

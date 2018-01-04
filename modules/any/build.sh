@@ -9,7 +9,7 @@ shopt -s globstar
 import com.encodeering.docker.lang
 import com.encodeering.docker.config
 
-mkimageqemu
+mkimageqemu "2.6.0"
 
 chmod -Rv +x usr/**/bin/*
 
