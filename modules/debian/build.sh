@@ -25,7 +25,7 @@ patch -p0 --no-backup-if-mismatch < patch/debootstrap/source.patch
 
 ./mkimage.sh -t "${PROJECT}:${VERSION}" debootstrap --arch="${ARCH}" --components=main,universe "${CONFIGURATION}" "${VERSION}" "${MIRROR}"
 
-docker export -o debian.tar.gz `docker create "${PROJECT}:${VERSION}" sh`
+docker export -o rootfs.tar.gz `docker create "${PROJECT}:${VERSION}" sh`
 docker export -o any.tar.gz    `docker create "${PROJECT}:any"        sh`
 
 docker build -t "${DOCKER_IMAGE}" .
