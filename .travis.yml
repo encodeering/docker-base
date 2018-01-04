@@ -14,8 +14,10 @@ env:
     - REPOSITORY="encodeering"
     - BRANCH="$TRAVIS_BRANCH"
   matrix:
-    - ARCH="armhf" VERSION="jessie" DEBOOTSTRAP="qemu-debootstrap"
-    - ARCH="amd64" VERSION="jessie" DEBOOTSTRAP="debootstrap"
+    - ARCH="armhf" VERSION="jessie"  DEBOOTSTRAP="qemu-debootstrap"
+    - ARCH="armhf" VERSION="stretch" DEBOOTSTRAP="qemu-debootstrap"
+    - ARCH="amd64" VERSION="jessie"  DEBOOTSTRAP="debootstrap"
+    - ARCH="amd64" VERSION="stretch" DEBOOTSTRAP="debootstrap"
 
 install:
 - sudo apt-get update
