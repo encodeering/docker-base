@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-QEMUBUILDPACK="$REPOSITORY/buildpack-amd64:jessie"
+QEMUBUILDPACK="$REPOSITORY/buildpack-amd64:stretch"
 QEMUDIRECTORY="qemu"
 
 mkimageqemu () {
