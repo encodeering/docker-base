@@ -3,8 +3,6 @@
 #   env.ARCH
 #   env.PROJECT
 #   env.VERSION
-#   env.CONFIGURATION
-#   env.MIRROR
 
 set -e
 
@@ -23,7 +21,7 @@ patch -p0 --no-backup-if-mismatch < patch/mkimage/docker.patch
 patch -p0 --no-backup-if-mismatch < patch/debootstrap/aptitude.patch
 patch -p0 --no-backup-if-mismatch < patch/debootstrap/source.patch
 
-./mkimage.sh -t "${PROJECT}:${VERSION}" debootstrap --arch="${ARCH}" --components=main,universe "${CONFIGURATION}" "${VERSION}" "${MIRROR}"
+./mkimage.sh -t "${PROJECT}:${VERSION}" debootstrap --arch="${ARCH}" --components=main,universe --variant=minbase "${VERSION}" http://ftp.us.debian.org/debian/
 
 docker export -o rootfs.tar.gz `docker create "${PROJECT}:${VERSION}" sh`
 docker export -o any.tar.gz    `docker create "${PROJECT}:any"        sh`
