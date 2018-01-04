@@ -1,23 +1,27 @@
-## Automatically created docker image for a Debian system
+## Automatically created docker image for a a few base system
 
 [![Build Status](https://travis-ci.org/encodeering/docker-debian.svg?branch=master)](https://travis-ci.org/encodeering/docker-debian)
 
 ### Docker
 
-```docker pull encodeering/debian-armhf```
+#### Debian
 
-- jessie, latest, 8
 - https://hub.docker.com/r/encodeering/debian-armhf/
 
-```docker pull encodeering/debian-amd64```
+    ```docker pull encodeering/debian-armhf:jessie```  
+    ```docker pull encodeering/debian-armhf:stretch```
 
-- jessie, latest, 8
 - https://hub.docker.com/r/encodeering/debian-amd64/
 
-### Modification
+    ```docker pull encodeering/debian-amd64:jessie```  
+    ```docker pull encodeering/debian-amd64:stretch```
 
-Uses a [variant](https://github.com/encodeering/armhf-debian-docker) of the build script of [djmaze](https://github.com/djmaze/armhf-debian-docker) and customizes the following parts.
+#### Alpine
 
-- [Foot print reduction](https://wiki.ubuntu.com/ReducingDiskFootprint#Documentation)
-- ENV LC_ALL C.UTF-8
-- ENV DEBIAN_FRONTEND noninteractive
+- https://hub.docker.com/r/encodeering/alpine-armhf/
+
+    ```docker pull encodeering/debian-armhf:3.7```
+
+- https://hub.docker.com/r/encodeering/alpine-amd64/
+
+    ```docker pull encodeering/debian-amd64:3.7```
