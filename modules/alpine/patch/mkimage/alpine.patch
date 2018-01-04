@@ -1,0 +1,9 @@
+--- mkimage-alpine.sh
++++ mkimage-alpine.sh
+@@ -31,0 +32 @@ mkbase() {
++    set +e
+@@ -33,0 +35 @@ mkbase() {
++	set -e
+@@ -89 +91 @@ conf
+-pack
++
