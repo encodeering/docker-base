@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-# configuration
-#   env.PROJECT
 
 set -e
 
