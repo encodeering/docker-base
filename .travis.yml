@@ -23,7 +23,7 @@ env:
 install:
 - sudo apt-get update
 - sudo apt-get install -y debian-archive-keyring debootstrap binfmt-support
-- bash <(curl https://raw.githubusercontent.com/encodeering/docker-ci/master/install.sh) 0.1.4
+- bash <(curl https://raw.githubusercontent.com/encodeering/docker-ci/master/install.sh) 0.1.6
 
 before_script:
 - sudo -E bash ./module.sh "." "./setup.sh"
