@@ -1,5 +1,5 @@
---- mkimage/debootstrap	2015-12-30 09:41:25.800971000 +0000
-+++ mkimage/debootstrap	2015-12-30 09:51:25.218188600 +0000
+--- rootfs/mkimage/debootstrap	2015-12-30 09:41:25.800971000 +0000
++++ rootfs/mkimage/debootstrap	2015-12-30 09:51:25.218188600 +0000
 @@ -149,6 +149,18 @@
  		# https://aptitude.alioth.debian.org/doc/en/ch02s05s05.html#configApt-AutoRemove-SuggestsImportant
  		Apt::AutoRemove::SuggestsImportant "false";

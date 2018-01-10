@@ -1,5 +1,5 @@
---- mkimage/debootstrap	2016-01-03 10:23:10.562464600 +0000
-+++ mkimage/debootstrap	2016-01-03 11:28:11.650695200 +0000
+--- rootfs/mkimage/debootstrap	2016-01-03 10:23:10.562464600 +0000
++++ rootfs/mkimage/debootstrap	2016-01-03 11:28:11.650695200 +0000
 @@ -163,6 +163,8 @@
  	if [ -z "$lsbDist" -a -r "$rootfsDir/etc/debian_version" ]; then
  		lsbDist='Debian'

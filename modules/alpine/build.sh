@@ -6,14 +6,15 @@ import com.encodeering.ci.lang
 import com.encodeering.ci.config
 import com.encodeering.ci.docker
 
-curl "https://raw.githubusercontent.com/docker/docker/master/contrib/mkimage-alpine.sh" >mkimage-alpine.sh
-chmod -R u+x mkimage-alpine.sh
+mkdir -p rootfs
+curl "https://raw.githubusercontent.com/docker/docker/master/contrib/mkimage-alpine.sh" >rootfs/mkimage-alpine.sh
+chmod -R u+x rootfs
 
-patch -p0 --no-backup-if-mismatch < patch/mkimage/alpine.patch
+patch -p1 --no-backup-if-mismatch --directory=rootfs < patch/mkimage-alpine.patch
 
 case "${ARCH}" in
-    amd64) ./mkimage-alpine.sh -r "v${VERSION}" -a x86_64    -s 1 ;;
-    *    ) ./mkimage-alpine.sh -r "v${VERSION}" -a "${ARCH}" -s 1 ;;
+    amd64) ./rootfs/mkimage-alpine.sh -r "v${VERSION}" -a x86_64    -s 1 ;;
+    *    ) ./rootfs/mkimage-alpine.sh -r "v${VERSION}" -a "${ARCH}" -s 1 ;;
 esac
 
 docker export -o any.tar.gz `docker create "${PROJECT}:any" sh`

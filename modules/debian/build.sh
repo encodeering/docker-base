@@ -6,18 +6,18 @@ import com.encodeering.ci.lang
 import com.encodeering.ci.config
 import com.encodeering.ci.docker
 
-mkdir -p mkimage
-curl "https://raw.githubusercontent.com/docker/docker/master/contrib/mkimage.sh" >mkimage.sh
-curl "https://raw.githubusercontent.com/docker/docker/master/contrib/mkimage/debootstrap" >mkimage/debootstrap
+mkdir -p rootfs/mkimage
+curl "https://raw.githubusercontent.com/docker/docker/master/contrib/mkimage.sh" >rootfs/mkimage.sh
+curl "https://raw.githubusercontent.com/docker/docker/master/contrib/mkimage/debootstrap" >rootfs/mkimage/debootstrap
 curl "https://anonscm.debian.org/git/pkg-qemu/qemu.git/plain/debian/qemu-debootstrap?h=debian-${VERSION}" >/usr/sbin/qemu-debootstrap
-chmod -R u+x mkimage mkimage.sh /usr/sbin/qemu-debootstrap
+chmod -R u+x rootfs /usr/sbin/qemu-debootstrap
 
-patch -p0 --no-backup-if-mismatch < patch/mkimage/rootfs.patch
-patch -p0 --no-backup-if-mismatch < patch/mkimage/docker.patch
-patch -p0 --no-backup-if-mismatch < patch/debootstrap/aptitude.patch
-patch -p0 --no-backup-if-mismatch < patch/debootstrap/source.patch
+patch -p1 --no-backup-if-mismatch --directory=rootfs < patch/mkimage-rootfs.patch
+patch -p1 --no-backup-if-mismatch --directory=rootfs < patch/mkimage-docker.patch
+patch -p1 --no-backup-if-mismatch --directory=rootfs < patch/mkimage/debootstrap-aptitude.patch
+patch -p1 --no-backup-if-mismatch --directory=rootfs < patch/mkimage/debootstrap-source.patch
 
-./mkimage.sh -t "${PROJECT}:${VERSION}" debootstrap --arch="${ARCH}" --components=main,universe --variant=minbase "${VERSION}" http://ftp.us.debian.org/debian/
+./rootfs/mkimage.sh -t "${PROJECT}:${VERSION}" debootstrap --arch="${ARCH}" --components=main,universe --variant=minbase "${VERSION}" http://ftp.us.debian.org/debian/
 
 docker export -o rootfs.tar.gz `docker create "${PROJECT}:${VERSION}" sh`
 docker export -o any.tar.gz    `docker create "${PROJECT}:any"        sh`
