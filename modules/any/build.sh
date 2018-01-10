@@ -4,8 +4,8 @@ set -e
 
 shopt -s globstar
 
-import com.encodeering.docker.lang
-import com.encodeering.docker.config
+import com.encodeering.ci.lang
+import com.encodeering.ci.config
 
 mkimageqemu "2.6.0"
 

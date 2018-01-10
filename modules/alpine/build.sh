@@ -2,9 +2,9 @@
 
 set -e
 
-import com.encodeering.docker.lang
-import com.encodeering.docker.config
-import com.encodeering.docker.docker
+import com.encodeering.ci.lang
+import com.encodeering.ci.config
+import com.encodeering.ci.docker
 
 curl "https://raw.githubusercontent.com/docker/docker/master/contrib/mkimage-alpine.sh" >mkimage-alpine.sh
 chmod -R u+x mkimage-alpine.sh
@@ -18,8 +18,12 @@ esac
 
 docker export -o any.tar.gz `docker create "${PROJECT}:any" sh`
 
-docker build -t "${DOCKER_IMAGE}" .
+docker-build .
 
-docker run --rm                       "${DOCKER_IMAGE}" cat /etc/alpine-release
-docker run --rm -e debug=true         "${DOCKER_IMAGE}" docker-exec                             cat /etc/alpine-release
-docker run --rm -e eula-sample=accept "${DOCKER_IMAGE}" docker-eula -k sample -u www.sample.org cat /etc/alpine-release
+docker-verify                                         cat /etc/alpine-release
+
+docker-verify-config "-e debug=true"
+docker-verify docker-exec                             cat /etc/alpine-release
+
+docker-verify-config "-e eula-sample=accept"
+docker-verify docker-eula -k sample -u www.sample.org cat /etc/alpine-release

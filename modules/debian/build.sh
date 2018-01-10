@@ -2,9 +2,9 @@
 
 set -e
 
-import com.encodeering.docker.lang
-import com.encodeering.docker.config
-import com.encodeering.docker.docker
+import com.encodeering.ci.lang
+import com.encodeering.ci.config
+import com.encodeering.ci.docker
 
 mkdir -p mkimage
 curl "https://raw.githubusercontent.com/docker/docker/master/contrib/mkimage.sh" >mkimage.sh
@@ -22,8 +22,12 @@ patch -p0 --no-backup-if-mismatch < patch/debootstrap/source.patch
 docker export -o rootfs.tar.gz `docker create "${PROJECT}:${VERSION}" sh`
 docker export -o any.tar.gz    `docker create "${PROJECT}:any"        sh`
 
-docker build -t "${DOCKER_IMAGE}" .
+docker-build .
 
-docker run --rm                       "${DOCKER_IMAGE}" cat /etc/debian_version
-docker run --rm -e debug=true         "${DOCKER_IMAGE}" docker-exec                             cat /etc/debian_version
-docker run --rm -e eula-sample=accept "${DOCKER_IMAGE}" docker-eula -k sample -u www.sample.org cat /etc/debian_version
+docker-verify                                         cat /etc/debian_version
+
+docker-verify-config "-e debug=true"
+docker-verify docker-exec                             cat /etc/debian_version
+
+docker-verify-config "-e eula-sample=accept"
+docker-verify docker-eula -k sample -u www.sample.org cat /etc/debian_version
