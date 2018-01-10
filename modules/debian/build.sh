@@ -17,10 +17,10 @@ patch -p1 --no-backup-if-mismatch --directory=rootfs < patch/mkimage-docker.patc
 patch -p1 --no-backup-if-mismatch --directory=rootfs < patch/mkimage/debootstrap-aptitude.patch
 patch -p1 --no-backup-if-mismatch --directory=rootfs < patch/mkimage/debootstrap-source.patch
 
-./rootfs/mkimage.sh -t "${PROJECT}:${VERSION}" debootstrap --arch="${ARCH}" --components=main,universe --variant=minbase "${VERSION}" http://ftp.us.debian.org/debian/
+(cd rootfs && ./mkimage.sh -t "${PROJECT}:${VERSION}" debootstrap --arch="${ARCH}" --components=main,universe --variant=minbase "${VERSION}" http://ftp.us.debian.org/debian/)
 
-docker export -o rootfs.tar.gz `docker create "${PROJECT}:${VERSION}" sh`
-docker export -o any.tar.gz    `docker create "${PROJECT}:any"        sh`
+docker export -o ./rootfs/rootfs.tar.gz `docker create "${PROJECT}:${VERSION}" sh`
+docker export -o ./rootfs/any.tar.gz    `docker create "${PROJECT}:any"        sh`
 
 docker-build .
 

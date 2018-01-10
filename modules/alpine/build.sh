@@ -13,11 +13,11 @@ chmod -R u+x rootfs
 patch -p1 --no-backup-if-mismatch --directory=rootfs < patch/mkimage-alpine.patch
 
 case "${ARCH}" in
-    amd64) ./rootfs/mkimage-alpine.sh -r "v${VERSION}" -a x86_64    -s 1 ;;
-    *    ) ./rootfs/mkimage-alpine.sh -r "v${VERSION}" -a "${ARCH}" -s 1 ;;
+    amd64) (cd rootfs && ./mkimage-alpine.sh -r "v${VERSION}" -a x86_64    -s 1) ;;
+    *    ) (cd rootfs && ./mkimage-alpine.sh -r "v${VERSION}" -a "${ARCH}" -s 1) ;;
 esac
 
-docker export -o any.tar.gz `docker create "${PROJECT}:any" sh`
+docker export -o ./rootfs/any.tar.gz `docker create "${PROJECT}:any" sh`
 
 docker-build .
 
