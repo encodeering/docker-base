@@ -12,10 +12,7 @@ curl "https://raw.githubusercontent.com/docker/docker/master/contrib/mkimage/deb
 curl "https://anonscm.debian.org/git/pkg-qemu/qemu.git/plain/debian/qemu-debootstrap?h=debian-${VERSION}" >/usr/sbin/qemu-debootstrap
 chmod -R u+x rootfs /usr/sbin/qemu-debootstrap
 
-patch -p1 --no-backup-if-mismatch --directory=rootfs < patch/mkimage-rootfs.patch
-patch -p1 --no-backup-if-mismatch --directory=rootfs < patch/mkimage-docker.patch
-patch -p1 --no-backup-if-mismatch --directory=rootfs < patch/mkimage/debootstrap-aptitude.patch
-patch -p1 --no-backup-if-mismatch --directory=rootfs < patch/mkimage/debootstrap-source.patch
+docker-patch patch rootfs
 
 (cd rootfs && ./mkimage.sh -t "${PROJECT}:${VERSION}" debootstrap --arch="${ARCH}" --components=main,universe --variant=minbase "${VERSION}" http://ftp.us.debian.org/debian/)
 
