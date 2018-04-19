@@ -1,7 +1,7 @@
 FROM scratch
 ADD  ./rootfs/rootfs.tar.xz ./rootfs/any.tar.gz /
 RUN  apk fix \
- &&  apk add bash \
+ &&  apk --no-cache add bash \
  &&  rm -fr /var/cache/apk/*
 
 FROM scratch
