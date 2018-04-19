@@ -6,4 +6,5 @@ RUN  apk fix \
 
 FROM scratch
 COPY --from=0 / .
-ENV  LANG=C.UTF-8
+ENV  LANG=C.UTF-8      \
+     PS1='\u@\h \W\$ '
