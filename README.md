@@ -1,6 +1,6 @@
-## Automatically created docker image for a a few base system
+## Automatically created docker image for a few base distributions
 
-[![Build Status](https://travis-ci.org/encodeering/docker-debian.svg?branch=master)](https://travis-ci.org/encodeering/docker-debian)
+[![Build Status](https://travis-ci.org/encodeering/docker-base.svg?branch=master)](https://travis-ci.org/encodeering/docker-base)
 
 ### Docker
 
@@ -20,8 +20,8 @@
 
 - https://hub.docker.com/r/encodeering/alpine-armhf/
 
-    ```docker pull encodeering/debian-armhf:3.7```
+    ```docker pull encodeering/alpine-armhf:3.7```
 
 - https://hub.docker.com/r/encodeering/alpine-amd64/
 
-    ```docker pull encodeering/debian-amd64:3.7```
+    ```docker pull encodeering/alpine-amd64:3.7```
