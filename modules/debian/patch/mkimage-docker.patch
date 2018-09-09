@@ -1,6 +1,6 @@
---- rootfs/mkimage.sh	2016-01-07 19:30:07.591254300 +0000
-+++ rootfs/mkimage.sh	2016-01-07 19:31:18.798092700 +0000
-@@ -107,6 +107,21 @@
+--- rootfs/mkimage.sh
++++ rootfs/mkimage.sh
+@@ -110,6 +110,21 @@ done
  
  if [ "$tag" ]; then
  	( set -x; docker build -t "$tag" "$dir" )

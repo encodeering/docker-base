@@ -1,6 +1,6 @@
---- rootfs/mkimage.sh	2015-12-30 08:55:24.101972100 +0000
-+++ rootfs/mkimage.sh	2015-12-30 08:53:28.863144900 +0000
-@@ -81,6 +81,12 @@
+--- rootfs/mkimage.sh
++++ rootfs/mkimage.sh
+@@ -84,6 +84,12 @@ nameserver 8.8.8.8
  nameserver 8.8.4.4
  EOF
  
