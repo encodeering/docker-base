@@ -9,7 +9,7 @@ import com.encodeering.ci.docker
 mkdir -p rootfs/mkimage
 curl "https://raw.githubusercontent.com/docker/docker/master/contrib/mkimage.sh" >rootfs/mkimage.sh
 curl "https://raw.githubusercontent.com/docker/docker/master/contrib/mkimage/debootstrap" >rootfs/mkimage/debootstrap
-curl "https://anonscm.debian.org/git/pkg-qemu/qemu.git/plain/debian/qemu-debootstrap?h=debian-${VERSION}" >/usr/sbin/qemu-debootstrap
+curl "https://salsa.debian.org/qemu-team/qemu/raw/debian-unstable/debian/qemu-debootstrap" >/usr/sbin/qemu-debootstrap
 chmod -R u+x rootfs /usr/sbin/qemu-debootstrap
 
 docker-patch patch rootfs
