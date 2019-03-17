@@ -11,7 +11,7 @@ mkimageqemu () {
     QEMU_NAME_STATIC="$QEMU_NAME-static"
     QEMU="/usr/bin/$QEMU_NAME_STATIC"
 
-    docker build -t qemu:static . -f- <<-EOF
+    docker build -t $REPOSITORY/qemu:static . -f- <<-EOF
 		FROM $QEMUBUILDPACK
 		RUN apt-get update && apt-get -y install git libglib2.0-dev libfdt-dev libpixman-1-dev zlib1g-dev
 		RUN git clone --depth 1 --branch "$version" https://github.com/qemu/qemu.git /usr/src/qemu
@@ -22,7 +22,7 @@ mkimageqemu () {
 EOF
 
     docker rm         "$QEMU_NAME" || true
-    docker run --name "$QEMU_NAME" qemu:static make -j4
+    docker run --name "$QEMU_NAME" $REPOSITORY/qemu:static make -j4
     docker cp         "$QEMU_NAME:/usr/src/qemu/build/$QEMU_TARGET/$QEMU_NAME" "$QEMU"
 
     strip -s "$QEMU"

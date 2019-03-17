@@ -11,4 +11,4 @@ mkimageqemu "2.6.0"
 
 chmod -Rv +x usr/**/bin/*
 
-docker build -t "$PROJECT:any" .
+docker build -t "${REPOSITORY}/${PROJECT}:any" .
