@@ -1,11 +1,12 @@
 --- rootfs/mkimage/debootstrap
 +++ rootfs/mkimage/debootstrap
-@@ -200,6 +200,8 @@ if [ -z "$DONT_TOUCH_SOURCES_LIST" ]; then
- 	if [ -z "$lsbDist" -a -r "$rootfsDir/etc/debian_version" ]; then
- 		lsbDist='Debian'
- 	fi
-+	# sources list is empty :/, adding mirror manually
-+	[[ -s "$rootfsDir/etc/apt/sources.list" ]] || echo "deb ${@: -1} $suite main" >> "$rootfsDir/etc/apt/sources.list"
- 	# normalize to lowercase for easier matching
- 	lsbDist="$(echo "$lsbDist" | tr '[:upper:]' '[:lower:]')"
- 	case "$lsbDist" in
+@@ -188,6 +188,9 @@ if [ -d "$rootfsDir/etc/apt/apt.conf.d" ]; then
+ 	EOF
+ fi
+ 
++# sources list is empty :/, adding mirror manually
++[[ -s "$rootfsDir/etc/apt/sources.list" ]] || echo "deb ${@: -1} $suite main" >> "$rootfsDir/etc/apt/sources.list"
++
+ if [ -z "$DONT_TOUCH_SOURCES_LIST" ]; then
+ 	# tweak sources.list, where appropriate
+ 	lsbDist=
