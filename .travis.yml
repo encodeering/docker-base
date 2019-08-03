@@ -14,7 +14,9 @@ env:
     - REPOSITORY="encodeering"
   matrix:
     - PROJECT="debian" ARCH="armhf" VERSION="stretch" DEBOOTSTRAP="qemu-debootstrap"
+    - PROJECT="debian" ARCH="armhf" VERSION="buster"  DEBOOTSTRAP="qemu-debootstrap"
     - PROJECT="debian" ARCH="amd64" VERSION="stretch" DEBOOTSTRAP="debootstrap"
+    - PROJECT="debian" ARCH="amd64" VERSION="buster"  DEBOOTSTRAP="debootstrap"
     - PROJECT="alpine" ARCH="armhf" VERSION="3.7"
     - PROJECT="alpine" ARCH="armhf" VERSION="3.8"
     - PROJECT="alpine" ARCH="armhf" VERSION="3.9"
