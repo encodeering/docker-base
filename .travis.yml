@@ -17,12 +17,12 @@ env:
     - PROJECT="debian" ARCH="armhf" VERSION="buster"  DEBOOTSTRAP="qemu-debootstrap"
     - PROJECT="debian" ARCH="amd64" VERSION="stretch" DEBOOTSTRAP="debootstrap"
     - PROJECT="debian" ARCH="amd64" VERSION="buster"  DEBOOTSTRAP="debootstrap"
-    - PROJECT="alpine" ARCH="armhf" VERSION="3.8"
     - PROJECT="alpine" ARCH="armhf" VERSION="3.9"
     - PROJECT="alpine" ARCH="armhf" VERSION="3.10"
-    - PROJECT="alpine" ARCH="amd64" VERSION="3.8"
+    - PROJECT="alpine" ARCH="armhf" VERSION="3.11"
     - PROJECT="alpine" ARCH="amd64" VERSION="3.9"
     - PROJECT="alpine" ARCH="amd64" VERSION="3.10"
+    - PROJECT="alpine" ARCH="amd64" VERSION="3.11"
 
 install:
 - sudo apt-get update
