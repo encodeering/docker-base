@@ -7,7 +7,7 @@ shopt -s globstar
 import com.encodeering.ci.lang
 import com.encodeering.ci.config
 
-mkimageqemu "2.6.0"
+mkimageqemu "5.0.0"
 
 chmod -Rv +x usr/**/bin/*
 
