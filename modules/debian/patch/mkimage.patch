@@ -1,12 +1,13 @@
 diff --git rootfs/mkimage.sh rootfs/mkimage.sh
-index 278a109..8b85638 100755
+index 278a109..16573e9 100755
 --- rootfs/mkimage.sh
 +++ rootfs/mkimage.sh
-@@ -139,2 +139,16 @@ if [ "$tag" ]; then
+@@ -139,2 +139,17 @@ if [ "$tag" ]; then
 -elif [ "$delDir" ]; then
 -	# if we didn't specify a tag and we're going to delete our dir, let's just build an untagged image so that we did _something_
 +cat > "$dir/Dockerfile" <<EOF
 +FROM $tag
++RUN echo "cacert=/etc/ssl/certs/ca-certificates.crt" > /root/.curlrc
 +RUN find "/usr/share/doc" -depth -type f ! -name copyright | xargs rm || true
 +RUN find "/usr/share/doc" -empty | xargs rmdir || true
 +RUN rm -rf "/usr/share/man/*"     "/usr/share/groff/*" "/usr/share/info/*"
@@ -21,6 +22,6 @@ index 278a109..8b85638 100755
 +path-exclude /usr/share/linda/*\n\
 +' >> /etc/dpkg/dpkg.cfg.d/01_nodoc
 +EOF
-@@ -143 +157 @@ elif [ "$delDir" ]; then
+@@ -143 +158 @@ elif [ "$delDir" ]; then
 -		docker build "$dir"
 +		docker build -t "$tag" "$dir"
