@@ -1,21 +1,16 @@
 diff --git rootfs/mkimage.sh rootfs/mkimage.sh
-index 278a109..1f5de23 100755
+index 278a109..8b85638 100755
 --- rootfs/mkimage.sh
 +++ rootfs/mkimage.sh
-@@ -103,0 +104,6 @@ EOF
-+# clean up unnecessary files (docs, locales...)
-+find "$rootfsDir/usr/share/doc" -depth -type f ! -name copyright |xargs rm || true
-+find "$rootfsDir/usr/share/doc" -empty |xargs rmdir || true
-+rm -rf "$rootfsDir/usr/share/man/*" "$rootfsDir/usr/share/groff/*" "$rootfsDir/usr/share/info/*"
-+rm -rf "$rootfsDir/usr/share/lintian/*" "$rootfsDir/usr/share/linda/*" "$rootfsDir/var/cache/man/*"
-+
-@@ -139,2 +145,14 @@ if [ "$tag" ]; then
+@@ -139,2 +139,16 @@ if [ "$tag" ]; then
 -elif [ "$delDir" ]; then
 -	# if we didn't specify a tag and we're going to delete our dir, let's just build an untagged image so that we did _something_
 +cat > "$dir/Dockerfile" <<EOF
 +FROM $tag
-+ENV LANG C.UTF-8
-+ENV DEBIAN_FRONTEND noninteractive
++RUN find "/usr/share/doc" -depth -type f ! -name copyright | xargs rm || true
++RUN find "/usr/share/doc" -empty | xargs rmdir || true
++RUN rm -rf "/usr/share/man/*"     "/usr/share/groff/*" "/usr/share/info/*"
++RUN rm -rf "/usr/share/lintian/*" "/usr/share/linda/*" "/var/cache/man/*"
 +RUN echo '\
 +path-exclude /usr/share/doc/*\n\
 +path-include /usr/share/doc/*/copyright\n\
@@ -26,6 +21,6 @@ index 278a109..1f5de23 100755
 +path-exclude /usr/share/linda/*\n\
 +' >> /etc/dpkg/dpkg.cfg.d/01_nodoc
 +EOF
-@@ -143 +161 @@ elif [ "$delDir" ]; then
+@@ -143 +157 @@ elif [ "$delDir" ]; then
 -		docker build "$dir"
 +		docker build -t "$tag" "$dir"
