@@ -23,10 +23,8 @@ mkimageqemu () {
 EOF
 
     docker rm         "$QEMU_NAME" || true
-    docker run --name "$QEMU_NAME" $REPOSITORY/qemu:static make -j4
+    docker run --name "$QEMU_NAME" $REPOSITORY/qemu:static bash -c "make -j4; strip -s '$QEMU_TARGET/$QEMU_NAME'"
     docker cp         "$QEMU_NAME:/usr/src/qemu/build/$QEMU_TARGET/$QEMU_NAME" "$QEMU"
-
-    strip -s "$QEMU"
 
     cp --parents "$QEMU" "$PWD"
 }
