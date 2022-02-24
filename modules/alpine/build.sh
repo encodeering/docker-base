@@ -7,7 +7,7 @@ import com.encodeering.ci.config
 import com.encodeering.ci.docker
 
 mkdir -p rootfs
-curl "https://raw.githubusercontent.com/docker/docker/master/contrib/mkimage-alpine.sh" >rootfs/mkimage-alpine.sh
+curl "https://raw.githubusercontent.com/docker/docker/72c21a7/contrib/mkimage-alpine.sh" >rootfs/mkimage-alpine.sh
 chmod -R u+x rootfs
 
 docker-patch patch rootfs

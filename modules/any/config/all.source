@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-QEMUBUILDPACK="$REPOSITORY/buildpack-amd64:stretch"
+QEMUBUILDPACK="$REPOSITORY/buildpack-amd64:buster"
 
 mkimageqemu () {
     [ -z "$QEMU_TARGET" ] && return
@@ -13,7 +13,8 @@ mkimageqemu () {
 
     docker build -t $REPOSITORY/qemu:static . -f- <<-EOF
 		FROM $QEMUBUILDPACK
-		RUN apt-get update && apt-get -y install git libglib2.0-dev libfdt-dev libpixman-1-dev zlib1g-dev
+		RUN apt-get update && apt-get -y install ca-certificates git libglib2.0-dev libfdt-dev libpixman-1-dev zlib1g-dev \
+		 &&                               update-ca-certificates
 		RUN git clone --depth 1 --branch "$version" https://github.com/qemu/qemu.git /usr/src/qemu
 		WORKDIR /usr/src/qemu
 		RUN mkdir -p build
@@ -22,10 +23,8 @@ mkimageqemu () {
 EOF
 
     docker rm         "$QEMU_NAME" || true
-    docker run --name "$QEMU_NAME" $REPOSITORY/qemu:static make -j4
+    docker run --name "$QEMU_NAME" $REPOSITORY/qemu:static bash -c "make -j4; strip -s '$QEMU_TARGET/$QEMU_NAME'"
     docker cp         "$QEMU_NAME:/usr/src/qemu/build/$QEMU_TARGET/$QEMU_NAME" "$QEMU"
-
-    strip -s "$QEMU"
 
     cp --parents "$QEMU" "$PWD"
 }
