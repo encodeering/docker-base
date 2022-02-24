@@ -1,7 +1,5 @@
 ## Automatically created docker image for a few base distributions
 
-[![Build Status](https://travis-ci.org/encodeering/docker-base.svg?branch=master)](https://travis-ci.org/encodeering/docker-base)
-
 ### Docker
 
 #### Debian

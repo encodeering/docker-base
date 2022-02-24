@@ -1,0 +1,71 @@
+jobs:
+- name: build
+  plan:
+  - in_parallel:
+    - get: code
+      params:
+        depth: 1
+    - get: dind
+    - get: buildpack
+      params:
+        format: oci
+  - across:
+    - var: env
+      values:
+      - PROJECT="debian" ARCH="armhf" VERSION="stretch" DEBOOTSTRAP="qemu-debootstrap"
+      - PROJECT="debian" ARCH="armhf" VERSION="buster"  DEBOOTSTRAP="qemu-debootstrap"
+      - PROJECT="debian" ARCH="amd64" VERSION="stretch" DEBOOTSTRAP="debootstrap"
+      - PROJECT="debian" ARCH="amd64" VERSION="buster"  DEBOOTSTRAP="debootstrap"
+      - PROJECT="alpine" ARCH="armhf" VERSION="3.9"
+      - PROJECT="alpine" ARCH="armhf" VERSION="3.10"
+      - PROJECT="alpine" ARCH="armhf" VERSION="3.11"
+      - PROJECT="alpine" ARCH="amd64" VERSION="3.9"
+      - PROJECT="alpine" ARCH="amd64" VERSION="3.10"
+      - PROJECT="alpine" ARCH="amd64" VERSION="3.11"
+      max_in_flight: 4
+    do:
+    - task: build
+      privileged: true
+      image: dind
+      config:
+        platform: linux
+        params:
+          REPOSITORY: encodeering
+          DOCKER_USERNAME: ((docker.username))
+          DOCKER_PASSWORD: ((docker.password))
+        inputs:
+        - name:               buildpack
+          path: code/registry/buildpack
+        - name: code
+        run:
+          path: entrypoint.sh
+          args:
+          - bash
+          - -cx
+          - |
+            set -euo pipefail
+            export ((.:env))
+            apt-get update
+            apt-get install -y debian-archive-keyring debootstrap
+            cd code
+            ci.sh docker
+            bash ./module.sh .                  ./setup.sh
+            bash ./module.sh modules/any        ./build.sh
+            bash ./module.sh modules/${PROJECT} ./build.sh
+            bash ./module.sh .                  ./release.sh
+
+resources:
+- name: code
+  type: git
+  source:
+    uri: https://github.com/encodeering/docker-base.git
+- name: dind
+  type: registry-image
+  source:
+    repository: encodeering/concourse-dind
+    tag: 0.1.12
+- name: buildpack
+  type: registry-image
+  source:
+    repository: encodeering/buildpack-amd64
+    tag: buster
