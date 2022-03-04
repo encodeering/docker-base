@@ -13,6 +13,8 @@ jobs:
     do:
     - set_pipeline: ((pipeline))
       file: code/concourse.yml
+      vars:
+        repository: ((repository))
       instance_vars:
         project: ((.:pipeline.project))
         version: ((.:pipeline.version))

@@ -19,7 +19,7 @@ jobs:
       config:
         platform: linux
         params:
-          REPOSITORY: encodeering
+          REPOSITORY: ((repository))
           PROJECT: ((project))
           VERSION: ((version))
           DOCKER_USERNAME: ((docker.username))
