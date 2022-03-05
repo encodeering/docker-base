@@ -38,9 +38,9 @@ jobs:
             apt-get install -y debian-archive-keyring debootstrap
             cd code
             ci.sh docker
-            bash ./module.sh .                  ./setup.sh
-            bash ./module.sh modules/${PROJECT} ./build.sh
-            bash ./module.sh .                  ./release.sh
+            bash ./module.sh .       ./setup.sh
+            bash ./module.sh modules ./build.sh
+            bash ./module.sh .       ./release.sh
 
 resources:
 - name: code
