@@ -6,6 +6,9 @@ import com.encodeering.ci.lang
 import com.encodeering.ci.config
 import com.encodeering.ci.docker
 
+apt-get update
+apt-get install -y debian-archive-keyring debootstrap
+
 mkdir -p                                                                                         rootfs/mkimage
 curl -sSL "https://raw.githubusercontent.com/docker/docker/72c21a7/contrib/mkimage.sh"          >rootfs/mkimage.sh
 curl -sSL "https://raw.githubusercontent.com/docker/docker/72c21a7/contrib/mkimage/debootstrap" >rootfs/mkimage/debootstrap
