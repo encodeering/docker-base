@@ -6,9 +6,6 @@ jobs:
       params:
         depth: 1
     - get: dind
-    - get: buildpack
-      params:
-        format: oci
   - across:
     - var: env
       values:
@@ -34,8 +31,6 @@ jobs:
           DOCKER_USERNAME: ((docker.username))
           DOCKER_PASSWORD: ((docker.password))
         inputs:
-        - name:               buildpack
-          path: code/registry/buildpack
         - name: code
         run:
           path: entrypoint.sh
@@ -63,8 +58,3 @@ resources:
   source:
     repository: encodeering/concourse-dind
     tag: 0.1.12
-- name: buildpack
-  type: registry-image
-  source:
-    repository: encodeering/buildpack-amd64
-    tag: buster
