@@ -50,7 +50,6 @@ jobs:
             cd code
             ci.sh docker
             bash ./module.sh .                  ./setup.sh
-            bash ./module.sh modules/any        ./build.sh
             bash ./module.sh modules/${PROJECT} ./build.sh
             bash ./module.sh .                  ./release.sh
 
