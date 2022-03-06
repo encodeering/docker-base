@@ -47,4 +47,4 @@ resources:
   type: registry-image
   source:
     repository: encodeering/concourse-dind
-    tag: 0.1.13
+    tag: ((concourse.dind))
