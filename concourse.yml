@@ -19,9 +19,8 @@ jobs:
       config:
         platform: linux
         params:
+          PIPELINE:   ((pipeline))
           REPOSITORY: ((repository))
-          PROJECT: ((project))
-          VERSION: ((version))
           DOCKER_USERNAME: ((docker.username))
           DOCKER_PASSWORD: ((docker.password))
         inputs:
@@ -35,7 +34,8 @@ jobs:
             set -euo pipefail
             export ((.:env))
             cd code
-            ci.sh docker
+            export $(ci.sh env <<< "${PIPELINE}")
+                     ci.sh unpack docker
             bash ./module.sh .       ./setup.sh
             bash ./module.sh modules ./build.sh
             bash ./module.sh .       ./release.sh
@@ -49,4 +49,4 @@ resources:
   type: registry-image
   source:
     repository: encodeering/concourse-dind
-    tag: 0.1.12
+    tag: 0.1.13

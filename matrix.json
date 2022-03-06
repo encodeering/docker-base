@@ -1,7 +1,9 @@
-[
-    { "project": "debian", "version": "stretch" },
-    { "project": "debian", "version": "buster"  },
-    { "project": "alpine", "version": "3.9"     },
-    { "project": "alpine", "version": "3.10"    },
-    { "project": "alpine", "version": "3.11"    }
-]
+{
+    "pipelines": [
+        { "project": "debian", "version": "stretch" },
+        { "project": "debian", "version": "buster"  },
+        { "project": "alpine", "version": "3.9"     },
+        { "project": "alpine", "version": "3.10"    },
+        { "project": "alpine", "version": "3.11"    }
+    ]
+}

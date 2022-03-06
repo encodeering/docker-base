@@ -9,15 +9,16 @@ jobs:
     format: json
   - across:
     - var: pipeline
-      values: ((.:matrix))
+      values: ((.:matrix.pipelines))
     do:
     - set_pipeline: ((pipeline))
       file: code/concourse.yml
       vars:
         repository: ((repository))
+        pipeline:   ((.:pipeline))
       instance_vars:
-        project: ((.:pipeline.project))
-        version: ((.:pipeline.version))
+        project:    ((.:pipeline.project))
+        version:    ((.:pipeline.version))
 
 resources:
 - name: code
