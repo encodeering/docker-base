@@ -1,9 +1,13 @@
 jobs:
 - name: self
   plan:
-  - get: code
-    params:
-      depth: 1
+  - in_parallel:
+    - get: ci
+      params:
+        depth: 1
+    - get: code
+      params:
+        depth: 1
   - load_var: matrix
     file: code/matrix.json
     format: json
@@ -12,7 +16,7 @@ jobs:
       values: ((.:matrix.pipelines))
     do:
     - set_pipeline: ((pipeline))
-      file: code/concourse.yml
+      file: ci/modules/pipeline/docker.yml
       vars:
         git:
           uri: ((git.uri))
@@ -25,6 +29,10 @@ jobs:
         version:    ((.:pipeline.version))
 
 resources:
+- name: ci
+  type: git
+  source:
+    uri: https://github.com/encodeering/docker-ci.git
 - name: code
   type: git
   source:
