@@ -7,10 +7,8 @@ jobs:
         depth: 1
     - get: dind
   - across:
-    - var: env
-      values:
-      - ARCH="amd64"
-      - ARCH="armhf"
+    - var: platform
+      values: ((platforms))
       max_in_flight: 2
     do:
     - task: build
@@ -19,6 +17,7 @@ jobs:
       config:
         platform: linux
         params:
+          ARCH:     ((.:platform))
           PIPELINE:   ((pipeline))
           REPOSITORY: ((repository))
           DOCKER_USERNAME: ((docker.username))
@@ -32,7 +31,6 @@ jobs:
           - -cx
           - |
             set -euo pipefail
-            export ((.:env))
             cd code
             export $(ci.sh env <<< "${PIPELINE}")
                      ci.sh unpack docker

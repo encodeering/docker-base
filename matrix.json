@@ -1,4 +1,5 @@
 {
+    "platforms": ["amd64", "armhf"],
     "pipelines": [
         { "project": "debian", "version": "stretch" },
         { "project": "debian", "version": "buster"  },

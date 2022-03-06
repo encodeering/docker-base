@@ -15,6 +15,7 @@ jobs:
       file: code/concourse.yml
       vars:
         repository: ((repository))
+        platforms:  ((.:matrix.platforms))
         pipeline:   ((.:pipeline))
       instance_vars:
         project:    ((.:pipeline.project))
