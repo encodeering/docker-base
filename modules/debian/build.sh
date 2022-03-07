@@ -22,4 +22,4 @@ docker export -o ./rootfs/rootfs.tar.gz `docker create "${REPOSITORY}/${PROJECT}
 
 docker-build .
 
-docker-verify cat /etc/os-release | dup | contains "(${VERSION})"
+docker-verify cat /etc/os-release | dup | matches "Debian.*?${VERSION}"
