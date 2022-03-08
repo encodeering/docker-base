@@ -6,20 +6,12 @@ import com.encodeering.ci.lang
 import com.encodeering.ci.config
 import com.encodeering.ci.docker
 
-apt-get update
-apt-get install -y debian-archive-keyring debootstrap
+docker-pull "${REPOSITORY}/debian-${ARCH}:bullseye" "debian:bullseye-slim"
 
-mkdir -p                                                                                         rootfs/mkimage
-curl -sSL "https://raw.githubusercontent.com/docker/docker/72c21a7/contrib/mkimage.sh"          >rootfs/mkimage.sh
-curl -sSL "https://raw.githubusercontent.com/docker/docker/72c21a7/contrib/mkimage/debootstrap" >rootfs/mkimage/debootstrap
-chmod -R u+x                                                                                     rootfs
+mkdir -p           debuerreotype/output
+(cd                debuerreotype && bash docker-run.sh --image "debuerreotype:latest" ./examples/debian.sh --arch "${ARCH}" output "${VERSION}" "2022-03-01T21:24:08Z" && docker rmi "debuerreotype:latest") # timestamp doesn't matter, see patch
+rootfs="$(find     debuerreotype/output -iwholename "*/rootfs.tar.xz" | sort | head -n1)"
 
-docker-patch patch rootfs
-
-(cd rootfs && ./mkimage.sh -t "${REPOSITORY}/${PROJECT}:${VERSION}" debootstrap --arch="${ARCH}" --components=main,universe --variant=minbase "${VERSION}" http://ftp.us.debian.org/debian/)
-
-docker export -o ./rootfs/rootfs.tar.gz `docker create "${REPOSITORY}/${PROJECT}:${VERSION}" sh`
-
-docker-build .
+docker-build . --build-arg rootfs="${rootfs}"
 
 docker-verify cat /etc/os-release | dup | matches "Debian.*?${VERSION}"
