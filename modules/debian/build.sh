@@ -6,8 +6,8 @@ import com.encodeering.ci.lang
 import com.encodeering.ci.config
 import com.encodeering.ci.docker
 
-#pull an official image the first time due to debuerreotype's internal requirements
-#docker-pull "${REPOSITORY}/debian-${ARCH}:bullseye" "debian:bullseye-slim"
+# additional tag is required for the scan process. the debian image would be considered an alien if the newly generated image gets tagged with bullseye
+docker-pull "${REPOSITORY}/debian-${ARCH}:bullseye" "debian:bullseye-slim" "${REPOSITORY}/debuerreotype:base"
 
 docker-patch patch debuerreotype
 
@@ -18,6 +18,3 @@ rootfs="$(find     debuerreotype/output -iwholename "*/rootfs.tar.xz" | sort | h
 docker-build . --build-arg rootfs="${rootfs}"
 
 docker-verify cat /etc/os-release | dup | matches "Debian.*?${VERSION}"
-
-#remove the official image
-docker rmi debian:bullseye-slim
