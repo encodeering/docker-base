@@ -13,7 +13,7 @@ docker-patch patch debuerreotype
 
 mkdir -p           debuerreotype/output
 (cd                debuerreotype && bash docker-run.sh --image "debuerreotype:latest" ./examples/debian.sh --arch "${ARCH}" output "${VERSION}" "1970-01-01T00:00:00Z" && docker rmi "debuerreotype:latest") # timestamp doesn't matter, see patch
-rootfs="$(find     debuerreotype/output -iwholename "*/rootfs.tar.xz" | sort | head -n1)"
+rootfs="$(find     debuerreotype/output -iwholename "*${VARIANT}/rootfs.tar.xz" | sort | head -n1 | dup)"
 
 docker-build . --build-arg rootfs="${rootfs}"
 
