@@ -4,20 +4,19 @@
     },
     "platforms": ["amd64", "armhf"],
     "pipelines": [
-        { "project": "debian", "base": "debian", "version": "stretch",  "variant": ""     },
-        { "project": "debian", "base": "debian", "version": "stretch",  "variant": "slim" },
         { "project": "debian", "base": "debian", "version": "buster",   "variant": ""     },
         { "project": "debian", "base": "debian", "version": "buster",   "variant": "slim" },
         { "project": "debian", "base": "debian", "version": "bullseye", "variant": ""     },
         { "project": "debian", "base": "debian", "version": "bullseye", "variant": "slim" },
         { "project": "debian", "base": "debian", "version": "bookworm", "variant": ""     },
         { "project": "debian", "base": "debian", "version": "bookworm", "variant": "slim" },
-        { "project": "alpine", "base": "alpine", "version": "3.9",      "variant": ""     },
-        { "project": "alpine", "base": "alpine", "version": "3.10",     "variant": ""     },
-        { "project": "alpine", "base": "alpine", "version": "3.11",     "variant": ""     },
         { "project": "alpine", "base": "alpine", "version": "3.12",     "variant": ""     },
         { "project": "alpine", "base": "alpine", "version": "3.13",     "variant": ""     },
         { "project": "alpine", "base": "alpine", "version": "3.14",     "variant": ""     },
-        { "project": "alpine", "base": "alpine", "version": "3.15",     "variant": ""     }
+        { "project": "alpine", "base": "alpine", "version": "3.16",     "variant": ""     },
+        { "project": "alpine", "base": "alpine", "version": "3.17",     "variant": ""     },
+        { "project": "alpine", "base": "alpine", "version": "3.18",     "variant": ""     },
+        { "project": "alpine", "base": "alpine", "version": "3.19",     "variant": ""     },
+        { "project": "alpine", "base": "alpine", "version": "3.20",     "variant": ""     }
     ]
 }
